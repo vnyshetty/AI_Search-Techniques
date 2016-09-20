@@ -1,5 +1,4 @@
 //import java.io.*;
-//comment
 import java.util.*;
 
 // Please check the parent of start node
@@ -9,9 +8,17 @@ public class A_Star {
 	class ElementPriority implements Comparable<ElementPriority> {
 	    String element;
 	    int path_cost;
+	    int time ;
 
 	    @Override public int compareTo(ElementPriority other) {
-	        return Integer.compare(this.path_cost, other.path_cost);
+	      //  return Integer.compare(this.path_cost, other.path_cost);
+	    	int res = Integer.compare(this.path_cost, other.path_cost);
+	    	if (other.path_cost == this.path_cost)
+	    	{
+	    	       res = (time < other.time ? -1 : 1);
+	    	    //   System.out.println("Comparing time");
+	    	}
+	    	return res;
 	    }
 	}
 	
@@ -41,6 +48,7 @@ public class A_Star {
 		
 		
 		HashMap<String, String> parentLists = new HashMap<String,String >();
+		int counter =0;
 		
 		
 		pathcost.put(STARTNODE,0);
@@ -50,6 +58,7 @@ public class A_Star {
 		ElementPriority EP = new ElementPriority();
 		EP.element = STARTNODE;
 		EP.path_cost = 0;
+		EP.time = 0;
 		frontier.add(EP);
 		explored.add(EP.element);
 		parentLists.put(EP.element,new String(EP.element));
@@ -110,6 +119,7 @@ public class A_Star {
 							itr_child.element = itr;
 							int child_cost = homework.adjLists.get(Current.element).get(itr).get(0);
 							itr_child.path_cost = Current.path_cost + child_cost - homework.hyuristic_map.get(parentLists.get(Current.element)) + homework.hyuristic_map.get(itr)   ;
+							itr_child.time = counter+1 ;
 							frontier.add(itr_child);
 						parentLists.put(itr_child.element,new String(Current.element));
 					
