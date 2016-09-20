@@ -1,0 +1,105 @@
+import java.io.*;
+import java.util.*;
+
+public class DepthFirstSearch {
+	String STARTNODE ;
+	String GOALNODE;
+	
+	public DepthFirstSearch(String STARTNODE , String GOALNODE)
+	{
+		this.STARTNODE = STARTNODE;
+		this.GOALNODE = GOALNODE;
+		
+	}
+
+	public void compute_dfs()
+	{
+		
+		HashMap<String, String> parentLists = new HashMap<String,String >();
+
+		
+		
+		if (this.STARTNODE.equals(this.GOALNODE))
+		{
+			System.out.println(this.STARTNODE +" " + 0);
+			return;
+			
+		}
+		Stack<String> dfs_stack = new Stack<> ();
+		ArrayList<String> explored = new ArrayList<> ();
+		dfs_stack.add(this.STARTNODE);
+	
+		parentLists.put(this.STARTNODE,new String(""));
+		int cost = 0;
+		while ( !dfs_stack.isEmpty())
+		{
+		
+			String Current = dfs_stack.pop();
+			if (!explored.contains(Current))
+			{
+		
+			if ( Current.equals(this.GOALNODE))
+			{
+				explored.add(Current);
+			
+				String child = Current;
+				List<String> path = new ArrayList<String>();
+				while (!parentLists.get(child).isEmpty())
+				{
+					path.add(child);
+					
+					child = parentLists.get(child);
+				}
+				path.add(child);
+				Collections.reverse(path);
+			
+				
+				for (String i : path)
+				{
+					System.out.println(i +" "+cost);
+					cost++;
+				}
+				return;
+				
+			}
+			else
+			{
+			
+				if ( homework.adjLists.get(Current)== null)
+					continue;
+				ArrayList<String> vertices = new ArrayList<String>();
+				for ( String itr :homework.adjLists.get(Current).keySet())
+				{
+					vertices.add(itr);
+				}
+				Collections.reverse(vertices);
+					
+					
+				    for ( String itr :vertices)
+					{
+					
+						
+						if(!dfs_stack.contains(itr))
+						{
+						dfs_stack.add(itr);
+						parentLists.put(itr,new String(Current));
+						}
+					
+						
+						
+					} 
+				
+				
+			
+					
+			}
+			//Optimize below
+			if(!explored.contains(Current))
+			explored.add(Current);
+			}
+			
+		}
+		
+	}
+
+}
