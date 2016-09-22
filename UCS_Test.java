@@ -1,4 +1,3 @@
-//import java.io.*;
 import java.util.*;
 
 
@@ -12,16 +11,12 @@ public class UCS_Test {
 	    int time ;
 
 	    @Override public int compareTo(ElementPriority other) {
-	       // return Integer.compare(this.path_cost, other.path_cost);
-	    //	System.out.println ("Comparing "+this.element +" and " + other.element);
-	    //	return (this.path_cost < other.path_cost ? -1
-	    //            : (this.path_cost == other.path_cost ? 0 : 1));
-	    	//int res = Integer.compare(this.path_cost, other.path_cost);
+	       
 	    	int res = Integer.compare(this.path_cost, other.path_cost);
 	    	if (other.path_cost == this.path_cost)
 	    	{
 	    	       res = (time < other.time ? -1 : 1);
-	    	    //   System.out.println("Comparing time");
+	    	    
 	    	}
 	    	return res;
 	    }
@@ -68,7 +63,7 @@ public class UCS_Test {
 		EP.path_cost = 0;
 		EP.time = 0;
 		frontier.add(EP);
-	//	explored.add(EP.element);
+	
 		parentLists.put(EP.element,new String(""));
 		
 		while (!frontier.isEmpty())
@@ -76,12 +71,12 @@ public class UCS_Test {
 			
 			ElementPriority Current = frontier.remove();
 			explored.add(Current.element);
-		//	System.out.println(Current.element);
+		
 			pathcost.put(Current.element,Current.path_cost);
 		
 			if ( Current.element.equals(this.GOALNODE))
 			{
-			//	explored.add(Current.element);
+			
 			
 				String child = Current.element;
 				List<String> path = new ArrayList<String>();
@@ -131,17 +126,7 @@ public class UCS_Test {
 							itr_child.path_cost = Current.path_cost + child_cost;
 							itr_child.time = counter+1 ;
 							frontier.add(itr_child);
-							//Added later
-					//		System.out.println(frontier.iterator());
-					/*		System.out.println("Contents of queue");
-							for (ElementPriority i : frontier)
-							{
-								System.out.println(i.element);
-							}
-							*/
-							//original
-						//	System.out.println("Added : "+itr_child.element);
-						//	System.out.println("Path Cost is : "+itr_child.path_cost);
+					
 						parentLists.put(itr_child.element,new String(Current.element));
 					
 						
@@ -162,20 +147,12 @@ public class UCS_Test {
 								}
 							}
 						}
-						//adding now
+						
 						if(mod_flag==1)
 						 {
-						/*	System.out.println("Contents of queue before modification");
-							for(ElementPriority ele : frontier)
-							{
-								System.out.println(ele.element +" "+ele.path_cost);
-							} */
+						
 						  cur = frontier.remove();
-					/*	  System.out.println("Contents of queue after modification and removing first element");
-							for(ElementPriority ele : frontier)
-							{
-								System.out.println(ele.element +" "+ele.path_cost);
-							} */
+					
 						  temp_queue.add(cur);
 						  if (cur.element.equals(modified_item.element))
 						  {
@@ -185,13 +162,13 @@ public class UCS_Test {
 						  }
 						  while(!cur.element.equals(modified_item.element))
 						   {
-						//	  System.out.println("Length "+frontier.size());
+						
 							cur = frontier.remove();
 							temp_queue.add(cur);
 						   }
 						  if(cur.element.equals(modified_item.element) && mod_flag !=0 )
 						  {
-							//  temp_queue.add();
+							
 							  mod_flag=0;
 						  }
 						  while(!temp_queue.isEmpty())
@@ -206,8 +183,7 @@ public class UCS_Test {
 			
 					
 			}
-		//	if(!explored.contains(Current.element))
-		//		explored.add(Current.element);
+		
 		}
 		
 	}

@@ -1,4 +1,3 @@
-//import java.io.*;
 import java.util.*;
 
 public class DepthFirstSearch {
@@ -26,19 +25,19 @@ public class DepthFirstSearch {
 			
 		}
 		Stack<String> dfs_stack = new Stack<> ();
-	//	Deque<String> dfs_stack = new ArrayDeque<String> ();
+	
 		ArrayList<String> explored = new ArrayList<> ();
 		dfs_stack.add(this.STARTNODE);
 		ArrayList<String> path = new ArrayList<String>();
 	
 		parentLists.put(this.STARTNODE,new String(""));
-	//	parentLists.put(this.STARTNODE,new String(this.STARTNODE));
+	
 		int cost = 0;
 		while ( !dfs_stack.isEmpty())
 		{
-	//		vertices.clear();
+	
 			String Current = dfs_stack.pop();
-	//	System.out.println("Current element is : " +Current);
+	
 			if (!explored.contains(Current))
 			{
 		
@@ -50,14 +49,14 @@ public class DepthFirstSearch {
 				String child = Current;
 				
 				while (!parentLists.get(child).isEmpty())
-			//	while (!parentLists.get(child).equals(""))	
+				
 				{
 					path.add(child);
 					
 					child = parentLists.get(child);
 				}
 				path.add(child);
-			//	path.add(this.STARTNODE);
+			
 				Collections.reverse(path); 
 			
 				
@@ -87,20 +86,20 @@ public class DepthFirstSearch {
 					{
 					
 				    	int index = dfs_stack.search(itr);
-				    	//System.out.println("Index is "+index);
+				    	
 						if(index == -1 && !explored.contains(itr))
 						{
-						//	System.out.println("Adding " +itr);
+						
 						dfs_stack.add(itr);
 						parentLists.put(itr,new String(Current));
-						 //System.out.println("Making " +itr +" the child of " +Current);
+						 
 						
 						}
 					
-					//	parentLists.put(this.STARTNODE,new String(""));
+					
 						
 					}
-				//    System.out.println(parentLists);
+				
 				    vertices = null;
 				    
 				
@@ -108,7 +107,7 @@ public class DepthFirstSearch {
 			
 					
 			}
-			//Optimize below
+			
 			if(!explored.contains(Current))
 			explored.add(Current);
 			}
