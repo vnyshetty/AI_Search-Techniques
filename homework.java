@@ -12,7 +12,7 @@ public class homework {
 public static	LinkedHashMap<String, LinkedHashMap<String, ArrayList<Integer>>> adjLists = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<Integer>>>();
 public static LinkedHashMap<String,Integer> hyuristic_map = new LinkedHashMap<String,Integer>();
 	public static void main(String[] args) {
-		long startTime = System.currentTimeMillis();
+	//	long startTime = System.currentTimeMillis();
 		// TODO Auto-generated method stub
 		
 		try {
@@ -98,7 +98,7 @@ public static LinkedHashMap<String,Integer> hyuristic_map = new LinkedHashMap<St
 		catch (Exception ex) {
             ex.printStackTrace();
         }
-		long endTime = System.currentTimeMillis();
+	//	long endTime = System.currentTimeMillis();
    //     System.out.println("It took " + (endTime - startTime) + " milliseconds");
 	}
 	

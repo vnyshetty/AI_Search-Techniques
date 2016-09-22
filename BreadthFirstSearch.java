@@ -1,4 +1,4 @@
-import java.io.*;
+//import java.io.*;
 import java.util.*;
 
 public class BreadthFirstSearch {
@@ -40,7 +40,7 @@ public class BreadthFirstSearch {
 				explored.add(Current);
 			
 				String child = Current;
-				List<String> path = new ArrayList<String>();
+				ArrayList<String> path = new ArrayList<String>();
 				while (!parentLists.get(child).isEmpty())
 				{
 					path.add(child);

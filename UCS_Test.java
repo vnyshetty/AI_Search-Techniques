@@ -2,6 +2,8 @@
 import java.util.*;
 
 
+
+
 public class UCS_Test {
 	
 	class ElementPriority implements Comparable<ElementPriority> {
@@ -43,7 +45,7 @@ public class UCS_Test {
 	public void compute_ucs()
 	{
 		PriorityQueue<ElementPriority> frontier = new PriorityQueue<>();
-
+		PriorityQueue<ElementPriority> temp_queue = new PriorityQueue<>();
 		
 		LinkedHashMap<String, Integer> pathcost = new LinkedHashMap<>();
 		
@@ -51,6 +53,10 @@ public class UCS_Test {
 		
 		
 		HashMap<String, String> parentLists = new HashMap<String,String >();
+		
+		int mod_flag = 0;
+		ElementPriority cur = new ElementPriority();
+		ElementPriority modified_item = new ElementPriority();
 		
 		 int counter =0;
 		
@@ -62,19 +68,20 @@ public class UCS_Test {
 		EP.path_cost = 0;
 		EP.time = 0;
 		frontier.add(EP);
-		explored.add(EP.element);
+	//	explored.add(EP.element);
 		parentLists.put(EP.element,new String(""));
 		
 		while (!frontier.isEmpty())
 		{
 			
 			ElementPriority Current = frontier.remove();
+			explored.add(Current.element);
 		//	System.out.println(Current.element);
 			pathcost.put(Current.element,Current.path_cost);
 		
 			if ( Current.element.equals(this.GOALNODE))
 			{
-				explored.add(Current.element);
+			//	explored.add(Current.element);
 			
 				String child = Current.element;
 				List<String> path = new ArrayList<String>();
@@ -140,7 +147,7 @@ public class UCS_Test {
 						
 						}
 						 
-						if (!explored.contains(itr))
+						if (!explored.contains(itr)&& flag == 1)
 						{
 						for (ElementPriority item : frontier)
 						{
@@ -149,11 +156,49 @@ public class UCS_Test {
 								if (item.path_cost > homework.adjLists.get(Current.element).get(itr).get(0) +Current.path_cost){
 								
 									item.path_cost = homework.adjLists.get(Current.element).get(itr).get(0) +Current.path_cost;
-								
+									modified_item = item;
+									mod_flag = 1;
 									parentLists.put(item.element, new String(Current.element));
 								}
 							}
 						}
+						//adding now
+						if(mod_flag==1)
+						 {
+						/*	System.out.println("Contents of queue before modification");
+							for(ElementPriority ele : frontier)
+							{
+								System.out.println(ele.element +" "+ele.path_cost);
+							} */
+						  cur = frontier.remove();
+					/*	  System.out.println("Contents of queue after modification and removing first element");
+							for(ElementPriority ele : frontier)
+							{
+								System.out.println(ele.element +" "+ele.path_cost);
+							} */
+						  temp_queue.add(cur);
+						  if (cur.element.equals(modified_item.element))
+						  {
+							  frontier.add(temp_queue.remove());
+							  mod_flag=0;
+							  
+						  }
+						  while(!cur.element.equals(modified_item.element))
+						   {
+						//	  System.out.println("Length "+frontier.size());
+							cur = frontier.remove();
+							temp_queue.add(cur);
+						   }
+						  if(cur.element.equals(modified_item.element) && mod_flag !=0 )
+						  {
+							//  temp_queue.add();
+							  mod_flag=0;
+						  }
+						  while(!temp_queue.isEmpty())
+							  frontier.add(temp_queue.remove());
+						 } 
+						
+						
 						}
 						
 					} 
@@ -161,8 +206,8 @@ public class UCS_Test {
 			
 					
 			}
-			if(!explored.contains(Current.element))
-				explored.add(Current.element);
+		//	if(!explored.contains(Current.element))
+		//		explored.add(Current.element);
 		}
 		
 	}

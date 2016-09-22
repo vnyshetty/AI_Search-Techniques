@@ -1,4 +1,4 @@
-import java.io.*;
+//import java.io.*;
 import java.util.*;
 
 public class DepthFirstSearch {
@@ -16,7 +16,7 @@ public class DepthFirstSearch {
 	{
 		
 		HashMap<String, String> parentLists = new HashMap<String,String >();
-
+		
 		
 		
 		if (this.STARTNODE.equals(this.GOALNODE))
@@ -26,32 +26,39 @@ public class DepthFirstSearch {
 			
 		}
 		Stack<String> dfs_stack = new Stack<> ();
+	//	Deque<String> dfs_stack = new ArrayDeque<String> ();
 		ArrayList<String> explored = new ArrayList<> ();
 		dfs_stack.add(this.STARTNODE);
+		ArrayList<String> path = new ArrayList<String>();
 	
 		parentLists.put(this.STARTNODE,new String(""));
+	//	parentLists.put(this.STARTNODE,new String(this.STARTNODE));
 		int cost = 0;
 		while ( !dfs_stack.isEmpty())
 		{
-		
+	//		vertices.clear();
 			String Current = dfs_stack.pop();
+	//	System.out.println("Current element is : " +Current);
 			if (!explored.contains(Current))
 			{
 		
 			if ( Current.equals(this.GOALNODE))
 			{
+				
 				explored.add(Current);
 			
 				String child = Current;
-				List<String> path = new ArrayList<String>();
+				
 				while (!parentLists.get(child).isEmpty())
+			//	while (!parentLists.get(child).equals(""))	
 				{
 					path.add(child);
 					
 					child = parentLists.get(child);
 				}
 				path.add(child);
-				Collections.reverse(path);
+			//	path.add(this.STARTNODE);
+				Collections.reverse(path); 
 			
 				
 				for (String i : path)
@@ -64,12 +71,13 @@ public class DepthFirstSearch {
 			}
 			else
 			{
-			
+				ArrayList<String> vertices = new ArrayList<String>();
 				if ( homework.adjLists.get(Current)== null)
 					continue;
-				ArrayList<String> vertices = new ArrayList<String>();
+				
 				for ( String itr :homework.adjLists.get(Current).keySet())
 				{
+					
 					vertices.add(itr);
 				}
 				Collections.reverse(vertices);
@@ -78,16 +86,23 @@ public class DepthFirstSearch {
 				    for ( String itr :vertices)
 					{
 					
-						
-						if(!dfs_stack.contains(itr))
+				    	int index = dfs_stack.search(itr);
+				    	//System.out.println("Index is "+index);
+						if(index == -1 && !explored.contains(itr))
 						{
+						//	System.out.println("Adding " +itr);
 						dfs_stack.add(itr);
 						parentLists.put(itr,new String(Current));
+						 //System.out.println("Making " +itr +" the child of " +Current);
+						
 						}
 					
+					//	parentLists.put(this.STARTNODE,new String(""));
 						
-						
-					} 
+					}
+				//    System.out.println(parentLists);
+				    vertices = null;
+				    
 				
 				
 			
